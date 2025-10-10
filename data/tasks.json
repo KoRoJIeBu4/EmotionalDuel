@@ -1,0 +1,61 @@
+{
+  "simple": [
+    "smile with closed eyes",
+    "angry face but with a smile",
+    "surprise without opening your mouth",
+    "sad but trying to hide it",
+    "laugh quietly",
+    "calm happiness like after good news",
+    "serious face with one eyebrow up",
+    "relaxed joy",
+    "tiny polite smile"
+  ],
+  "complex": [
+    "anger mixed with laughter",
+    "fake a polite smile you don't mean",
+    "realize you made a mistake",
+    "show fear but try to look brave",
+    "disappointed but smiling",
+    "bored but polite",
+    "awkward laugh",
+    "admiration with envy",
+    "fake excitement",
+    "surprised but not really"
+  ],
+  "funny": [
+    "smell something bad but smile anyway",
+    "ate a lemon",
+    "joy with your eyes only",
+    "wink both eyes",
+    "proud like you just won a medal",
+    "thinking very hard about something silly",
+    "about to sneeze but stop",
+    "curiosity like a cat",
+    "spy trying not to laugh",
+    "shocked but quietly"
+  ],
+  "roleplay": [
+    "superhero hiding your identity",
+    "telling someone a secret",
+    "seeing your favorite person after years",
+    "trying not to cry in public",
+    "looking at someone you love",
+    "angry at a friend but still care",
+    "pretending to be happy on camera",
+    "disappointed in your pet but can't stay mad",
+    "impressed by something you don't understand",
+    "trying to look cool for a photo"
+  ],
+  "express": [
+    "fear for one second",
+    "smile then switch to anger",
+    "calm to surprised instantly",
+    "sad then fake a smile",
+    "silent laugh for three seconds",
+    "smile with eyes closed slowly",
+    "shocked then relieved",
+    "polite yawn",
+    "embarrassed then hide it",
+    "quiet excitement"
+  ]
+}
