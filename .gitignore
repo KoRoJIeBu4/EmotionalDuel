@@ -1,0 +1,15 @@
+venv/
+.venv/
+env/
+
+__pycache__/
+*.pyc
+
+.env
+
+.vscode/
+.idea/
+
+.DS_Store
+
+Parsing.zip
