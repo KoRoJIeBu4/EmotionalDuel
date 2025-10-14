@@ -295,7 +295,7 @@ class Database:
                     user_id=row.user_id,
                     wins=int(row.wins),
                     games=int(row.games),
-                    win_rate=float(row.win_rate) if row.win_rate is not None else 0.0,
+                    winrate=float(row.win_rate) if row.win_rate is not None else 0.0,
                 )
                 for row in res
             ]

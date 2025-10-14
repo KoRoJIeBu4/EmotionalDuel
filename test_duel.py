@@ -1,0 +1,30 @@
+from pathlib import Path
+
+from modules.emotion_recognition_pipeline.duel_api import DuelML
+
+"""
+Подготовка:
+- Сохраните два файла изображений в data/uploads:
+  data/images/1001.jpg
+  data/images/2002.jpg
+- Запустите этот скрипт, чтобы проверить работу адаптера.
+"""
+
+if __name__ == "__main__":
+    uploads = Path("data/images")
+    uploads.mkdir(parents=True, exist_ok=True)
+
+    task = "joy with closed eyes" 
+
+    ml = DuelML()
+    res = ml.score_duel_by_user_ids(
+        task_text=task,
+        user_a_id=1001,
+        user_b_id=2002,
+        uploads_dir=str(uploads),
+        cleanup_after=False,  # Поставьте True, чтобы удалить файлы после оценки
+    )
+
+    print("Score A:", res.score_a)
+    print("Score B:", res.score_b)
+    print("Winner:", res.winner)  # 'a' | 'b' | None (ничья)
