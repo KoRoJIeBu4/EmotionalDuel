@@ -1,0 +1,122 @@
+{
+  "Basic Emotions": [
+    "happy face",
+    "sad face",
+    "angry face",
+    "surprised face",
+    "scared face",
+    "disgusted face",
+    "neutral face",
+    "crying face",
+    "laughing face",
+    "shocked expression"
+  ],
+  "Mixed Feelings": [
+    "angry but smiling",
+    "happy but crying",
+    "confused but smiling",
+    "sad but pretending to be okay",
+    "nervous smile",
+    "frustrated but calm",
+    "relieved after crying",
+    "surprised but disappointed",
+    "embarrassed but laughing",
+    "smiling through pain"
+  ],
+  "Social Reactions": [
+    "fake smile",
+    "awkward smile",
+    "rolling eyes",
+    "facepalm reaction",
+    "forced laugh",
+    "polite smile",
+    "judging look",
+    "unimpressed face",
+    "annoyed look",
+    "sarcastic smile"
+  ],
+  "Micro-Expressions": [
+    "micro smile",
+    "brief anger",
+    "quick surprise",
+    "subtle fear expression",
+    "slight disgust",
+    "tiny smirk",
+    "fleeting sadness",
+    "raised eyebrow expression",
+    "side eye glance",
+    "suppressed laughter"
+  ],
+  "Sarcasm & Irony": [
+    "sarcastic smile",
+    "fake excitement",
+    "mock surprise",
+    "ironic laugh",
+    "yeah right expression",
+    "playful sarcasm",
+    "teasing face",
+    "skeptical look",
+    "sure whatever face",
+    "pretending to care"
+  ],
+  "Everyday Situations": [
+    "tasting something sour",
+    "smelling something bad",
+    "looking at the sun",
+    "waking up sleepy face",
+    "biting lip thinking",
+    "reacting to loud noise",
+    "concentrating face",
+    "yawning person",
+    "sneezing reaction",
+    "confused after reading something"
+  ],
+  "Fantasy / Roleplay": [
+    "superhero pose face",
+    "evil grin",
+    "wizard concentrating",
+    "villain smile",
+    "hero serious face",
+    "shocked anime face",
+    "dramatic actor face",
+    "mysterious smile",
+    "pretending to be scared",
+    "warrior battle cry"
+  ],
+  "Reactions & Memes": [
+    "that face when surprised",
+    "cringe reaction",
+    "shocked meme face",
+    "emotional reaction meme",
+    "facepalm meme",
+    "laughing reaction",
+    "confused reaction meme",
+    "omg face",
+    "disbelief expression",
+    "awkward reaction"
+  ],
+  "Flirt & Affection": [
+    "flirty smile",
+    "shy smile",
+    "blushing face",
+    "playful look",
+    "smiling with eyes",
+    "winking face",
+    "gentle smile",
+    "loving gaze",
+    "affectionate look",
+    "smiling while looking away"
+  ],
+  "Performance & Acting": [
+    "dramatic sadness",
+    "overacting joy",
+    "fake crying",
+    "silent scream",
+    "theatrical anger",
+    "exaggerated surprise",
+    "stage fear",
+    "pretending to laugh",
+    "emotional monologue face",
+    "shocked performance pose"
+  ]
+}
