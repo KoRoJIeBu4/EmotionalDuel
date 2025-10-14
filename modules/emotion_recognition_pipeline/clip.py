@@ -6,13 +6,17 @@ from PIL import Image
 import numpy as np
 import torchvision.transforms as T
 from huggingface_hub import hf_hub_download
+from pathlib import Path
 
 
 
 class EDModel:
-    def __init__(self, device):
-        self.weights_path = weights_path
+    def __init__(self, device, weights_dir="data/weights"):
         self.device = device
+
+        self.weights_dir = Path(weights_dir)
+        self.weights_dir.mkdir(parents=True, exist_ok=True)
+        self.weights_path = self.weights_dir / "edmodel.pth"
 
         model, _, preprocess = open_clip.create_model_and_transforms(
             'ViT-H-14',
@@ -23,9 +27,17 @@ class EDModel:
         self.preprocess = preprocess
         self.tokenizer = open_clip.get_tokenizer('ViT-H-14')
 
-        weights_path = hf_hub_download("KoRoJIeBu4/my-emotion-model", "edmodel.pth")
-        state_dict = torch.load(weights_path, map_location=device)
+        if not self.weights_path.exists():
+            print(f"[INFO] Downloading weights to {self.weights_path}...")
+            self.weights_path = hf_hub_download(
+                repo_id="KoRoJIeBu4/my-emotion-model",
+                filename="edmodel.pth",
+                cache_dir=str(self.weights_dir)
+            )
+        else:
+            print(f"[INFO] Using existing weights at {self.weights_path}")
 
+        state_dict = torch.load(self.weights_path, map_location=device)
         self.model.load_state_dict(state_dict)
         self.model.eval()
 

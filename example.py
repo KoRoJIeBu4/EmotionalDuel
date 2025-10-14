@@ -30,6 +30,9 @@ images.append(hint)
 # report[-1] - это кортеж для картинки hint и ее скор. Это можно обыграть тоже
 report = model.play_duel(task, images)
 
+for img, score in report:
+    print(img, score)
+
 # Дальше на усмотрение что с этим делать
 
 

@@ -1,2 +1,5 @@
 venv/
 .venv/
+data/weights/
+data/weights
+modules/emotion_recognition_pipeline/__pycache__
