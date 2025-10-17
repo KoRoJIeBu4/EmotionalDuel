@@ -9,6 +9,7 @@ from game_state import game_manager
 from modules.emotion_recognition_pipeline.duel_api import DuelML
 from modules.emotion_recognition_pipeline.task_management import TaskManager
 from modules.database.database import Database
+from math import isinf
 
 from states import UserStates  # наши состояния
 
@@ -320,12 +321,64 @@ async def room_notify_result(bot, room, host, guest, score_a, score_b, winner_us
     Если передан main_menu_markup — отправим отдельное сообщение с этим меню.
     """
     def format_text(is_winner, score_self, score_opp):
-        if winner_user_id is None:
-            return f"⚖️ Ничья!\n\nЭмоция: {task_text}\nТвой результат: {(score_self + 1) * 50:.3f}%\nСоперник: {(score_opp + 1) * 50:.3f}%"
-        if is_winner:
-            return f"🏆 Ты победил!\n\nЭмоция: {task_text}\nТвой результат: {(score_self + 1) * 50:.3f}%\nСоперник: {(score_opp + 1) * 50:.3f}%"
+        """
+        Форматирует текст результата дуэли с учетом наличия лиц на фото.
+        - Оба -inf → "На ваших обоих фото мне трудно найти лица"
+        - Одно из них -inf → побеждает тот, у кого лицо найдено
+        - Иначе — стандартный текст с сравнением процентов
+        """
+
+        self_inf = isinf(score_self) and score_self < 0
+        opp_inf = isinf(score_opp) and score_opp < 0
+
+        if self_inf and opp_inf:
+            return "🤷 На ваших обоих фото мне трудно найти лица."
+
+        if self_inf and not opp_inf:
+            return (
+                "😕 Мне трудно найти лицо на твоем фото, "
+                "поэтому соперник получает преимущество."
+            )
+        if opp_inf and not self_inf:
+            return (
+                "😏 У соперника лицо не удалось найти, "
+                "поэтому твое фото побеждает без борьбы!"
+            )
+
+
+        diff = score_self - score_opp
+        diff_text = ""
+        if diff > 0:
+            diff_text = f"\n📈 Ты выглядел лучше соперника на"
         else:
-            return f"😞 Ты проиграл.\n\nЭмоция: {task_text}\nТвой результат: {(score_self + 1) * 50:.3f}%\nСоперник: {(score_opp + 1) * 50:.3f}%"
+            diff_text = f"\n📉 Соперник выглядел лучше тебя на"
+
+
+
+        if winner_user_id is None:
+            return (
+                f"⚖️ Ничья!\n\n"
+                f"Эмоция: {task_text}\n"
+                f"Твой результат: {(score_self+1)*50:.3f}%\n"
+                f"Соперник: {(score_opp+1)*50:.3f}%"
+            )
+
+        if is_winner:
+            return (
+                f"🏆 Ты победил!\n\n"
+                f"Эмоция: {task_text}\n"
+                f"Твой результат: {(score_self+1)*50:.3f}%\n"
+                f"Соперник: {(score_opp+1)*50:.3f}%"
+                f"{diff_text} {(score_self+1)*50-(score_opp+1)*50:.3f}%!"
+            )
+        else:
+            return (
+                f"😞 Ты проиграл.\n\n"
+                f"Эмоция: {task_text}\n"
+                f"Твой результат: {(score_self+1)*50:.2f}%\n"
+                f"Соперник: {(score_opp+1)*50:.2f}%\n"
+                f"{diff_text} {(score_opp+1)*50-(score_self+1)*50:.3f}%!"
+            )
 
     try:
         await bot.send_message(host, format_text(winner_user_id == host, score_a, score_b))

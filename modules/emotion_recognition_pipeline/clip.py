@@ -7,12 +7,15 @@ import numpy as np
 import torchvision.transforms as T
 from huggingface_hub import hf_hub_download
 from pathlib import Path
+from facenet_pytorch import MTCNN
 
 
 
 class EDModel:
     def __init__(self, device, weights_dir="data/weights"):
         self.device = device
+
+        print(f"[INFO] current_device: {self.device}")
 
         self.weights_dir = Path(weights_dir)
         self.weights_dir.mkdir(parents=True, exist_ok=True)
@@ -41,14 +44,25 @@ class EDModel:
         self.model.load_state_dict(state_dict)
         self.model.eval()
 
+        print("[INFO] Initializing face detector (MTCNN)...")
+        self.mtcnn = MTCNN(keep_all=True, device=device)
+
         print(f"[INFO] Model initialized on {self.device}")
         print(f"[INFO] Weights loaded from: {self.weights_path}")
+
+
+    def has_face(self, image: Image.Image) -> bool:
+        try:
+            boxes, _ = self.mtcnn.detect(image)
+            return boxes is not None and len(boxes) > 0
+        except:
+            return False
 
     
     def play_duel(self, task: str, images: list[Image.Image]) -> list[tuple[Image.Image, float]]:
         '''
         Принимает задание, набор картинок - возвращает кортежы, где 
-        каждый кортеж - это картинка и скор
+        каждый кортеж - это картинка и скор (если лицо не обнаружено, то скор -inf)
         ! Порядок возврата картинок тот же, что и прием
         '''
         TEMPLATES = [
@@ -60,7 +74,6 @@ class EDModel:
             "on the picture: {emotion}",
         ]
         promt = [tplt.format(emotion=task) for tplt in TEMPLATES]
-        sims = []
 
         with torch.no_grad():
             preprocessed_text = self.tokenizer(promt).to(self.device)
@@ -77,7 +90,13 @@ class EDModel:
 
             sims = (image_features @ text_features.T).mean(dim=1).tolist()
 
-            return list(zip(images, sims))
+            results = []
+            for img, sim in zip(images, sims):
+                if not self.has_face(img):
+                    sim = float("-inf")
+                results.append((img, sim))
+
+            return results
 
 
 
